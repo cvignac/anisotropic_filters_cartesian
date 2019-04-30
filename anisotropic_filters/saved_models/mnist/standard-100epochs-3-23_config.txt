@@ -1,0 +1,17 @@
+mainCIFAR.py
+--dataset
+mnist
+--gpu
+2
+--standard
+--size
+3
+--epochs
+100
+--early-stopping
+10
+--save-results
+--experiments
+10
+--id
+23
