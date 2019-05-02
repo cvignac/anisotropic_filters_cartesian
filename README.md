@@ -5,7 +5,7 @@ Pytorch implementation of the paper:
 *Learning anisotropic filters on product graphs*, Clément Vignac & Pascal Frossard, 2019
 
 
-##Image classification
+## Image classification
 
 To display the different options:
 

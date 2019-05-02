@@ -56,6 +56,7 @@ def parserCIFAR():
                         help='Use directed paths')
     parser.add_argument('--standard', action='store_true', default=False,
                         help='Train a standard CNN')
+    parser.add_argument('--visualize', action='store_true', default=False)
     common_parser(parser)
     args = parser.parse_args()
     return common_processing(args)

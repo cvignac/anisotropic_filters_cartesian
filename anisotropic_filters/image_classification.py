@@ -7,10 +7,10 @@ import torch
 import torch.optim as optim
 import torch.nn.functional as F
 # Project files
-from anisotropic_filters.visualize_filters import visualize, visualize_standard_conv
-import anisotropic_filters.utils as utils
-import anisotropic_filters.parser as parser
-from anisotropic_filters.models import StandardNet, ProductNet
+from visualize_filters import visualize, visualize_standard_conv
+import utils as utils
+import parser as parser
+from models import StandardNet, ProductNet
 
 
 def train(args, model, device, train_loader, optimizer, epoch):

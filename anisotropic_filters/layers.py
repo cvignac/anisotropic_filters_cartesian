@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 import scipy
-import anisotropic_filters.graph_utils as graph_utils
+import graph_utils as graph_utils
 
 
 class ChebychevConvolution(torch.nn.Module):

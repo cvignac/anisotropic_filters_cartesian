@@ -3,7 +3,7 @@ import torch
 # import anisotropic_filters.graph_utils as graph_utils
 import matplotlib.pyplot as plt
 import os
-from anisotropic_filters.layers import ChebychevConvolution
+from layers import ChebychevConvolution
 
 d1, d2 = 7, 7
 
