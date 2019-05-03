@@ -13,6 +13,13 @@ To display the different options:
 python3 image_classification.py -h
 ```
 
+The code takes too long to be run without GPU, and typically a couple of hours per experiment on a GPU. This is due to
+fact that sparse semantics are not used: it appeared faster to use full matrix multiplications on a GPU rather than
+sparse semantics on CPU.
+
+Example: Isotropic filters on MNIST:
+
+``` python3 image_classification.py --dataset mnist --isotropic --id 1 --save-results --size 2 ```
 
 
 
