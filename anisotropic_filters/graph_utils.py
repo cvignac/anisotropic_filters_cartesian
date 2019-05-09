@@ -10,13 +10,17 @@ class ExtendedGraph(graphs.Graph):
             k (int): maximum power of the polynomials. """
         self.k, self._k = k, k + 1      # Polynomial of degree k is included
         A_full = A.toarray() if sp.sparse.issparse(A) else A
-        self.directed = not np.allclose(A_full, A_full.T)
+        self.directed = not np.allclose(A_full, A_full.T)        # Normalize the Laplacian
         if self.directed:
-            super().__init__(A, lap_type='combinatorial')
-            self.L = self.L.toarray()
+            super().__init__(A_full)
+            sqrt_d = np.sqrt(np.diag(A_full))
+            sqrt_d[sqrt_d == 0] = 1
+            isqrt = np.diag(1 / sqrt_d)
+            self.L = - isqrt @ A_full @ isqrt
         else:
             super().__init__(A, lap_type='normalized')
             self.L = self.L.toarray() - np.eye(self.N)
+
         # Computation of a normalized Laplacian
         self.L = self.L.astype(np.float32)
         self.L = torch.from_numpy(self.L)
