@@ -1,0 +1,15 @@
+Device used: cuda:3
+Namespace(batch_size=512, dataset='cifar10', directed=False, early_stopping=5, epochs=150, experiments=1, gpu=3, id=None, isotropic=False, log_interval=50, lr=0.0002, no_cuda=False, save_model=False, save_results=False, seed=1, size=2, standard=False, test_batch_size=1000, visualize=False)
+Name of the model: 150epochs-2-77280
+Files already downloaded and verified
+Running ProductNet.
+Isotropic: False
+Parameters in the model:
+fc1.weight : torch.Size([64, 4096])
+fc1.bias : torch.Size([64])
+fc2.weight : torch.Size([10, 64])
+fc2.bias : torch.Size([10])
+conv1.coefs : torch.Size([3, 3, 3, 32])
+conv2.coefs : torch.Size([3, 3, 32, 32])
+conv3.coefs : torch.Size([3, 3, 32, 64])
+Total number of parameters 291370
