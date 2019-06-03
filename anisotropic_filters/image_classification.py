@@ -99,7 +99,7 @@ def mainCIFAR10():
     for expe in range(n_expe):
         model = StandardNet(args) if args.standard else ProductNet(args)
         model = model.to(device)
-        optimizer = optim.Adam(model.parameters(), args.lr)
+        optimizer = optim.Adam(model.parameters(), args.lr, weight_decay=5e-5)
         if args.early_stopping:
             earlyS = utils.EarlyStopping(mode='max', patience=args.early_stopping)
 

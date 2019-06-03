@@ -63,21 +63,24 @@ class ProductNet(ImageClassificationNetwork):
         self.conv1 = conv(self.input_chan, self.units[0], im_size1, *other_args)
         self.conv2 = conv(self.units[0], self.units[1], im_size2, *other_args)
         self.conv3 = conv(self.units[1], self.units[2], im_size3, *other_args)
+        self.bn1 = torch.nn.BatchNorm2d(self.units[0])
+        self.bn2 = torch.nn.BatchNorm2d(self.units[1])
+        self.bn3 = torch.nn.BatchNorm2d(self.units[2])
 
         self.print_params()
 
     def forward(self, x):
         if self.zero_padding:
             x = self.pad(x)
-            x = F.relu(self.conv1(x))
+            x = F.relu(self.bn1(self.conv1(x)))
             x = self.unpad(x)
             x = F.max_pool2d(x, 2, 2)
             x = self.pad(x)
-            x = F.relu(self.conv2(x))
+            x = F.relu(self.bn2(self.conv2(x)))
             x = self.unpad(x)
             x = F.max_pool2d(x, 2, 2)
             x = self.pad(x)
-            x = F.relu(self.conv3(x))
+            x = F.relu(self.bn3(self.conv3(x)))
             x = self.unpad(x)
             x = x.contiguous()
         else:
