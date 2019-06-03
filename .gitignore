@@ -2,3 +2,12 @@ anisotropic_filters/__pycache__/*
 anisotropic_filters/results/*
 anisotropic_filters/saved_models/*
 
+__pycache__
+*.pyc
+results_isotropic
+results/*
+saved_models/*
+mnist/*
+.*
+archives/*
+data/*
