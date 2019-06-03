@@ -1,5 +1,0 @@
-/Users/clementvignac/code/src/github/cvignac/pytorch_mnist/main_recommender.py
---size
-1
---epochs
-5
