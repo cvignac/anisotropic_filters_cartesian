@@ -61,13 +61,38 @@ class ChebychevConvolution(torch.nn.Module):
 
 
 class ImageChebychevConvolution(ChebychevConvolution):
-    def __init__(self, channels, units, length, k, isotropic, directed):
+    def __init__(self, channels, units, length, k, isotropic, directed, padding):
         """ Specific ChebychevConvolution layer where the graphs are path graphs"""
         # Build the adjacency of path graphs to create a grid
+        self.padding = padding
+        if padding:
+            length = length + 2 * k
+
         A = np.zeros((length, length))
         for i in range(length - 1):
             A[i, i + 1] = 1
         if not directed:
             A = A + A.T
         super().__init__(A, A, channels, units, k, isotropic)
+
+    def forward(self, x):
+        if self.padding:
+            new_x = self.pad(x)
+            y = super().forward(x)
+            new_y = self.unpad(y)
+            return new_y
+
+        return super().forward(x)
+
+    def pad(self, x):
+        s0, s1, s2, s3 = x.shape
+        size = self.size
+        new_x = torch.zeros((s0, s1, s2 + 2 * size, s3 + 2 * size), dtype=x.dtype, device=x.device)
+        new_x[:, :, size:-size, size:-size] = x
+        return new_x
+
+    def unpad(self, x):
+        size = self.size
+        return x[:, :, size:-size, size:-size]
+
 
