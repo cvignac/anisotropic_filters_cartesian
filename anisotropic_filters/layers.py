@@ -24,10 +24,9 @@ class ChebychevConvolution(torch.nn.Module):
 
         if graphs_are_equal:
             self.G2 = self.G1
-            self.cheb2 = self.cheb1
         else:
             self.G2 = graph_utils.ExtendedGraph(A2, k, use_L, use_chebychev)
-            self.register_buffer('cheb2', self.G2.chebychev)
+        self.register_buffer('cheb2', self.G2.chebychev)
 
         # Build parameter tensor
         self.powers = self.G1.chebychev.shape[0]
