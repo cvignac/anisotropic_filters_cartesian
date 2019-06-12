@@ -7,7 +7,7 @@ import graph_utils as graph_utils
 
 
 class ChebychevConvolution(torch.nn.Module):
-    def __init__(self, A1, A2, channels, units, k, isotropic):
+    def __init__(self, A1, A2, channels, units, k, isotropic, use_L, use_chebychev):
         """ Compute Laplacian polynomials where
             the coefficients are trainable parameters.
             A1, A2 (np.array): adjacency matrices of the graphs
@@ -16,11 +16,18 @@ class ChebychevConvolution(torch.nn.Module):
         self.channels, self.units = channels, units
         self.isotropic = isotropic
         self.k, self._k = k, k + 1
+        graphs_are_equal = A2 is A1
+
         # Build graphs using the adjacency matrices
-        self.G1 = graph_utils.ExtendedGraph(A1, k)
-        self.G2 = graph_utils.ExtendedGraph(A2, k)
+        self.G1 = graph_utils.ExtendedGraph(A1, k, use_L, use_chebychev)
         self.register_buffer('cheb1', self.G1.chebychev)
-        self.register_buffer('cheb2', self.G2.chebychev)
+
+        if graphs_are_equal:
+            self.G2 = self.G1
+            self.cheb2 = self.cheb1
+        else:
+            self.G2 = graph_utils.ExtendedGraph(A2, k, use_L, use_chebychev)
+            self.register_buffer('cheb2', self.G2.chebychev)
 
         # Build parameter tensor
         self.powers = self.G1.chebychev.shape[0]
@@ -61,7 +68,7 @@ class ChebychevConvolution(torch.nn.Module):
 
 
 class ImageChebychevConvolution(ChebychevConvolution):
-    def __init__(self, channels, units, length, k, isotropic, directed, padding):
+    def __init__(self, channels, units, length, k, isotropic, directed, padding, use_L, use_chebychev):
         """ Specific ChebychevConvolution layer where the graphs are path graphs"""
         # Build the adjacency of path graphs to create a grid
         self.padding = padding
@@ -73,7 +80,7 @@ class ImageChebychevConvolution(ChebychevConvolution):
             A[i, i + 1] = 1
         if not directed:
             A = A + A.T
-        super().__init__(A, A, channels, units, k, isotropic)
+        super().__init__(A, A, channels, units, k, isotropic, use_L, use_chebychev)
 
     def forward(self, x):
         if self.padding:

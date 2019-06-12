@@ -20,6 +20,10 @@ def common_parser(parser):
                         help='Constrain the filters to be isotropic')
     parser.add_argument('--experiments', type=int, default=1,
                         help='Number of experiments to average results on')
+    parser.add_argument('--use-L', action='store_true', default=False,
+                        help='Use the normalized Laplacian instead of adjacency matrix')
+    parser.add_argument('--use-chebychev', action='store_true', default=False,
+                         help='Use chebychev polynomials instead of monomials')
     # Learning parameters
     parser.add_argument('--lr', type=float, default=0.0003,
                         help='learning rate')

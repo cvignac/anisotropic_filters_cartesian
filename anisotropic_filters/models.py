@@ -68,7 +68,8 @@ class ImageClassificationNetwork(nn.Module):
 class ProductNet(ImageClassificationNetwork):
     def __init__(self, args):
         padding = False
-        self.other_args = (args.size, args.isotropic, args.directed, padding)
+        self.other_args = (args.size, args.isotropic, args.directed, padding,
+                           args.use_L, args.use_chebychev)
         print("Running ProductNet.")
         print("Isotropic:", args.isotropic)
         super().__init__(args)
