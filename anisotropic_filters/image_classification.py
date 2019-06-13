@@ -56,12 +56,12 @@ def test(model, device, test_loader):
     return 100. * correct / len(test_loader.dataset)
 
 
-def mainCIFAR10():
+def main():
     # Parse the arguments
     args, device, model_name, paths, kwargs = parser.parserCIFAR()
     print(args)
     print('Name of the model:', model_name)
-
+    print("In main", torch.cuda.current_device())
     # Find the dataset
     dataset = args.dataset
     if Path('/dataset/' + dataset).is_dir():
@@ -128,4 +128,4 @@ def mainCIFAR10():
 
 
 if __name__ == '__main__':
-    mainCIFAR10()
+    main()

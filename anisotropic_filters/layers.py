@@ -5,7 +5,6 @@ import numpy as np
 import scipy
 import graph_utils as graph_utils
 
-
 class ChebychevConvolution(torch.nn.Module):
     def __init__(self, A1, A2, channels, units, k, isotropic, use_L, use_chebychev):
         """ Compute Laplacian polynomials where
@@ -20,6 +19,7 @@ class ChebychevConvolution(torch.nn.Module):
 
         # Build graphs using the adjacency matrices
         self.G1 = graph_utils.ExtendedGraph(A1, k, use_L, use_chebychev)
+
         self.register_buffer('cheb1', self.G1.chebychev)
 
         if graphs_are_equal:

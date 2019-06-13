@@ -73,6 +73,7 @@ def common_processing(args):
     use_cuda = not args.no_cuda and torch.cuda.is_available()
     if use_cuda:
         device = torch.device("cuda:" + str(args.gpu))
+        torch.cuda.set_device(args.gpu)
         os.environ['CUDA_VISIBLE_DEVICES'] = str(args.gpu)
     else:
         device = "cpu"
