@@ -2,8 +2,9 @@
 import torch
 import torch.nn as nn
 import numpy as np
-import scipy
+import scipy.special
 import graph_utils as graph_utils
+
 
 class ChebychevConvolution(torch.nn.Module):
     def __init__(self, A1, A2, channels, units, k, isotropic, use_L, use_chebychev):

@@ -61,7 +61,6 @@ def main():
     args, device, model_name, paths, kwargs = parser.parserCIFAR()
     print(args)
     print('Name of the model:', model_name)
-    print("In main", torch.cuda.current_device())
     # Find the dataset
     dataset = args.dataset
     if Path('/dataset/' + dataset).is_dir():

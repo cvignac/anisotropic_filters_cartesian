@@ -35,8 +35,10 @@ class ImageClassificationNetwork(nn.Module):
         else:
             raise ValueError("Dataset not implemented")
 
-        self.bn1 = torch.nn.BatchNorm2d(units[0])
-        self.bn2 = torch.nn.BatchNorm2d(units[1])
+        self.use_batch_norm = not args.no_batch_norm
+        if self.use_batch_norm:
+            self.bn1 = torch.nn.BatchNorm2d(units[0])
+            self.bn2 = torch.nn.BatchNorm2d(units[1])
 
         self.fc1 = nn.Linear(fc_size, 64)
         self.fc2 = nn.Linear(64, 10)
@@ -51,9 +53,13 @@ class ImageClassificationNetwork(nn.Module):
     def forward(self, x):
         x = F.relu(self.conv1(x))
         x = F.max_pool2d(x, 2, 2)
-        x = F.relu(self.conv2(self.bn1(x)))
+        if self.use_batch_norm:
+            x = self.bn1(x)
+        x = F.relu(self.conv2(x))
         x = F.max_pool2d(x, 2, 2)
-        x = F.relu(self.conv3(self.bn2(x)))
+        if self.use_batch_norm:
+            x = self.bn2(x)
+        x = F.relu(self.conv3(x))
         x = x.view(x.shape[0], -1)
         x = F.relu(self.fc1(x))
         x = F.dropout(x, training=self.training)

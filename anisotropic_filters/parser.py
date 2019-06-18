@@ -20,6 +20,8 @@ def common_parser(parser):
                         help='Constrain the filters to be isotropic')
     parser.add_argument('--experiments', type=int, default=1,
                         help='Number of experiments to average results on')
+    parser.add_argument('--no-batch-norm', action='store_true',
+                        help='Disable batch normalization')
     parser.add_argument('--use-L', action='store_true', default=False,
                         help='Use the normalized Laplacian instead of adjacency matrix')
     parser.add_argument('--use-chebychev', action='store_true', default=False,
@@ -79,7 +81,6 @@ def common_processing(args):
         device = "cpu"
     kwargs = {'num_workers': 1, 'pin_memory': True} if use_cuda else {}
     print('Device used:', device)
-
 
     model_name = build_model_name(args.epochs, args.isotropic,
                                   args.size, args.id)

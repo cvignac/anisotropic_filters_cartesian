@@ -17,24 +17,27 @@ def create_table():
     results = np.zeros((5, 4))
     f = 2.262 / 3   # Coefficient from the Student law
     # CIFAR 10
-    cifar_path = './results/cifar10/'
-    iso8 = np.loadtxt(cifar_path + 'graph-100epochs-iso-2-10.txt')
-    iso2 = np.loadtxt(cifar_path + 'graph-100epochs-iso-8-11.txt')
-    aniso2 = np.loadtxt(cifar_path + 'graph-100epochs-2-12.txt')
-    conv3 = np.loadtxt(cifar_path + 'standard-100epochs-3-13.txt')
-    conv5 = np.loadtxt(cifar_path + 'standard-100epochs-5-14.txt')
-    res_cifar = [iso2, iso8, aniso2, conv3, conv5]
-    for i, res in enumerate(res_cifar):
-        results[i, 0] = np.mean(res[:, -1], axis=0)
-        results[i, 1] = f * np.std(res[:, -1], axis=0)
+    # cifar_path = './results/cifar10/'
+    # iso8 = np.loadtxt(cifar_path + 'graph-100epochs-iso-2-10.txt')
+    # iso2 = np.loadtxt(cifar_path + 'graph-100epochs-iso-8-11.txt')
+    # aniso2 = np.loadtxt(cifar_path + 'graph-100epochs-2-12.txt')
+    # conv3 = np.loadtxt(cifar_path + 'standard-100epochs-3-13.txt')
+    # conv5 = np.loadtxt(cifar_path + 'standard-100epochs-5-14.txt')
+    # res_cifar = [iso2, iso8, aniso2, conv3, conv5]
+    # for i, res in enumerate(res_cifar):
+    #     results[i, 0] = np.mean(res[:, -1], axis=0)
+    #     results[i, 1] = f * np.std(res[:, -1], axis=0)
     # MNIST
     mnist_path = './results/mnist/'
-    iso8 = np.loadtxt(mnist_path + 'graph-100epochs-iso-2-20.txt')
-    iso2 = np.loadtxt(mnist_path + 'graph-100epochs-iso-8-21.txt')
-    aniso2 = np.loadtxt(mnist_path + 'graph-100epochs-2-22.txt')
-    conv3 = np.loadtxt(mnist_path + 'standard-100epochs-3-23.txt')
-    conv5 = np.loadtxt(mnist_path + 'standard-100epochs-5-24.txt')
-    res_mnist = [iso2, iso8, aniso2, conv3, conv5]
+    # iso8 = np.loadtxt(mnist_path + 'graph-100epochs-iso-2-20.txt')
+    # iso2 = np.loadtxt(mnist_path + 'graph-100epochs-iso-8-21.txt')
+    aniso2 = np.loadtxt(mnist_path + '50epochs-2-132.txt')
+    directed1 = np.loadtxt(mnist_path + '50epochs-1-141.txt')
+    directed2 = np.loadtxt(mnist_path + '50epochs-2-142.txt')
+    conv3 = np.loadtxt(mnist_path + '50epochs-3-113.txt')
+    conv5 = np.loadtxt(mnist_path + '50epochs-5-115.txt')
+    # res_mnist = [iso2, iso8, aniso2, conv3, conv5]
+    res_mnist = [aniso2, directed1, directed2, conv3, conv5]
     for i, res in enumerate(res_mnist):
         results[i, 2] = np.mean(res[:, -1], axis=0)
         results[i, 3] = f * np.std(res[:, -1], axis=0)
@@ -43,23 +46,23 @@ def create_table():
     print(results)
 
 
-    # Movielens100k
-    iso = np.array([0.939023, 0.941270, 0.938805, 0.941265, 0.936824, 0.942998, 0.938459, 0.937278, 0.935927, 0.940648])
-
-                    #0.944219, 0.956575, 0.954904, 0.956351, 0.955504, 0.956421, 0.952571, 0.956672, 0.954547, 0.950492 ])
-    aniso = np.array([0.932687, 0.93679, 0.93750, 0.931799, 0.932642, 0.938435, 0.931335,  0.930390, 0.937903, 0.935545])
-    print("Mean, confidence iso", np.mean(iso), f * np.std(iso))
-    print("Mean, confidence aniso", np.mean(aniso), f * np.std(aniso))
-
-    iso_perso = np.loadtxt('./results/movielens100k/1500epochs-iso-2-13.txt')
-    aniso_perso = np.loadtxt('./results/movielens100k/1500epochs-2-12.txt')
-    movielens_results = [[], []]
-    for res in [iso_perso, aniso_perso]:
-        movielens_results[0].append(np.mean(res[:, -1], axis=0))
-        movielens_results[1].append(f * np.std(res[:, -1], axis=0))
-    np.savetxt('results_movielens.txt', movielens_results, fmt='%.5f')
-    print("Results on Movielens")
-    print(movielens_results)
+    # # Movielens100k
+    # iso = np.array([0.939023, 0.941270, 0.938805, 0.941265, 0.936824, 0.942998, 0.938459, 0.937278, 0.935927, 0.940648])
+    #
+    #                 #0.944219, 0.956575, 0.954904, 0.956351, 0.955504, 0.956421, 0.952571, 0.956672, 0.954547, 0.950492 ])
+    # aniso = np.array([0.932687, 0.93679, 0.93750, 0.931799, 0.932642, 0.938435, 0.931335,  0.930390, 0.937903, 0.935545])
+    # print("Mean, confidence iso", np.mean(iso), f * np.std(iso))
+    # print("Mean, confidence aniso", np.mean(aniso), f * np.std(aniso))
+    #
+    # iso_perso = np.loadtxt('./results/movielens100k/1500epochs-iso-2-13.txt')
+    # aniso_perso = np.loadtxt('./results/movielens100k/1500epochs-2-12.txt')
+    # movielens_results = [[], []]
+    # for res in [iso_perso, aniso_perso]:
+    #     movielens_results[0].append(np.mean(res[:, -1], axis=0))
+    #     movielens_results[1].append(f * np.std(res[:, -1], axis=0))
+    # np.savetxt('results_movielens.txt', movielens_results, fmt='%.5f')
+    # print("Results on Movielens")
+    # print(movielens_results)
 
 
 def analyse_acc():
