@@ -22,9 +22,9 @@ def common_parser(parser):
                         help='Number of experiments to average results on')
     parser.add_argument('--no-batch-norm', action='store_true',
                         help='Disable batch normalization')
-    parser.add_argument('--use-L', action='store_true', default=False,
+    parser.add_argument('--use-L', action='store_false', default=True,
                         help='Use the normalized Laplacian instead of adjacency matrix')
-    parser.add_argument('--use-chebychev', action='store_true', default=False,
+    parser.add_argument('--use-chebychev', action='store_false', default=True,
                          help='Use chebychev polynomials instead of monomials')
     # Learning parameters
     parser.add_argument('--lr', type=float, default=0.0003,

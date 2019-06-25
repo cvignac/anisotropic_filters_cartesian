@@ -13,10 +13,6 @@ class ExtendedGraph():
         self.directed = not np.allclose(A_full, A_full.T)
 
         if use_L:
-            # Combinatorial Laplacian
-            # d = np.diag(np.sum(A_full, axis=0))
-            # self.L = d - A_full
-
             # Normalize the Laplacian
             isqrt = []
             for axis in [0, 1]:
@@ -25,9 +21,6 @@ class ExtendedGraph():
                 isqrt.append(np.diag(1 / sqrt_d))
             # Shifted normalized Laplacian
             self.L = - isqrt[0] @ A_full @ isqrt[1]
-
-            # Symmetric normalized Laplacian
-            # self.L = np.eye(A_full.shape[0]) - isqrt[0] @ A_full @ isqrt[1]
         else:
             self.L = A_full
 
