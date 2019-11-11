@@ -27,7 +27,7 @@ def visualize_standard_conv(model, model_name):
         y = (y - np.min(y)) / (np.max(y)) - np.min(y)
         plt.imshow(y)
         plt.title('First layer, unit {}'.format(u))
-        folder = './results/visualization/' + model_name
+        folder = './results/visualization/11-11-2019/' + model_name
         if not os.path.exists(folder):
             os.makedirs(folder)
         plt.savefig(folder + '/cnn_unit_{}_{}.eps'.format(model_name, u))

@@ -14,30 +14,31 @@ def create_table():
             conv3
             conv5
     '''
-    results = np.zeros((5, 4))
+    results = np.zeros((7, 4))
     f = 2.262 / 3   # Coefficient from the Student law
     # CIFAR 10
-    # cifar_path = './results/cifar10/'
-    # iso8 = np.loadtxt(cifar_path + 'graph-100epochs-iso-2-10.txt')
-    # iso2 = np.loadtxt(cifar_path + 'graph-100epochs-iso-8-11.txt')
-    # aniso2 = np.loadtxt(cifar_path + 'graph-100epochs-2-12.txt')
-    # conv3 = np.loadtxt(cifar_path + 'standard-100epochs-3-13.txt')
-    # conv5 = np.loadtxt(cifar_path + 'standard-100epochs-5-14.txt')
-    # res_cifar = [iso2, iso8, aniso2, conv3, conv5]
-    # for i, res in enumerate(res_cifar):
-    #     results[i, 0] = np.mean(res[:, -1], axis=0)
-    #     results[i, 1] = f * np.std(res[:, -1], axis=0)
+    cifar_path = './results/cifar10/'
+    iso8 = np.loadtxt(cifar_path + '50epochs-iso-8-228.txt')
+    iso2 = np.loadtxt(cifar_path + '50epochs-iso-2-222.txt')
+    aniso2 = np.loadtxt(cifar_path + '50epochs-2-232.txt')
+    conv3 = np.loadtxt(cifar_path + '50epochs-3-213.txt')
+    conv5 = np.loadtxt(cifar_path + '50epochs-5-215.txt')
+    directed1 = np.loadtxt(cifar_path + '50epochs-1-241.txt')
+    directed2 = np.loadtxt(cifar_path + '50epochs-2-242.txt')
+    res_cifar = [iso2, iso8, aniso2, directed1, directed2, conv3, conv5]
+    for i, res in enumerate(res_cifar):
+        results[i, 0] = np.mean(res[:, -1], axis=0)
+        results[i, 1] = f * np.std(res[:, -1], axis=0)
     # MNIST
     mnist_path = './results/mnist/'
-    # iso8 = np.loadtxt(mnist_path + 'graph-100epochs-iso-2-20.txt')
-    # iso2 = np.loadtxt(mnist_path + 'graph-100epochs-iso-8-21.txt')
+    iso8 = np.loadtxt(mnist_path + '150epochs-iso-2-122.txt')
+    iso2 = np.loadtxt(mnist_path + '150epochs-iso-8-128.txt')
     aniso2 = np.loadtxt(mnist_path + '50epochs-2-132.txt')
     directed1 = np.loadtxt(mnist_path + '50epochs-1-141.txt')
     directed2 = np.loadtxt(mnist_path + '50epochs-2-142.txt')
     conv3 = np.loadtxt(mnist_path + '50epochs-3-113.txt')
     conv5 = np.loadtxt(mnist_path + '50epochs-5-115.txt')
-    # res_mnist = [iso2, iso8, aniso2, conv3, conv5]
-    res_mnist = [aniso2, directed1, directed2, conv3, conv5]
+    res_mnist = [iso2, iso8, aniso2, directed1, directed2, conv3, conv5]
     for i, res in enumerate(res_mnist):
         results[i, 2] = np.mean(res[:, -1], axis=0)
         results[i, 3] = f * np.std(res[:, -1], axis=0)
