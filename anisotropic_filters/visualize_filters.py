@@ -33,7 +33,7 @@ def visualize_standard_conv(model, model_name):
         plt.savefig(folder + '/cnn_unit_{}_{}.eps'.format(model_name, u))
 
 
-def visualize(model, model_name):
+def visualize(model, model_name, args):
     coefs1 = model.conv1.coefs      # _k, _k, channel, units
     isotropic = len(coefs1.shape) == 3
     if isotropic:
@@ -44,7 +44,8 @@ def visualize(model, model_name):
     A = np.zeros((d1, d1))
     for i in range(d1 - 1):
         A[i, i + 1] = 1
-    A = A + A.T
+    if not args.directed:
+        A = A + A.T
 
     layer = ChebychevConvolution(A, A, channels, units, k - 1, isotropic, use_L=True, use_chebychev=True)
     layer.coefs = coefs1

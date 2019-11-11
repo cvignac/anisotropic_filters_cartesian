@@ -90,7 +90,7 @@ def main():
         model.load_state_dict(torch.load(load_path))
         print('Model loaded')
         model = model.to('cpu')
-        (visualize_standard_conv if args.standard else visualize)(model, model_name)
+        (visualize_standard_conv if args.standard else visualize)(model, model_name, args)
         return
 
     n_expe = args.experiments
