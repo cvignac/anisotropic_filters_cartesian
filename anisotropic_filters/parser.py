@@ -86,7 +86,7 @@ def common_processing(args):
                                   args.size, args.id)
 
     assert not (args.no_cuda and args.gpu)
-    assert not (args.save_model and (args.n_experiments > 1))
+    assert not (args.save_model and (args.experiments > 1))
 
     dataset = args.dataset
     paths = {'save': './saved_models/{}/{}.pt'.format(dataset, model_name),
