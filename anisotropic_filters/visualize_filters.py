@@ -46,7 +46,7 @@ def visualize(model, model_name):
         A[i, i + 1] = 1
     A = A + A.T
 
-    layer = ChebychevConvolution(A, A, channels, units, k - 1, isotropic)
+    layer = ChebychevConvolution(A, A, channels, units, k - 1, isotropic, use_L=True, use_chebychev=True)
     layer.coefs = coefs1
     delta1 = torch.from_numpy(np.zeros((1, channels, d1, d1), dtype=np.float32))
     delta2 = torch.from_numpy(np.zeros((1, channels, d1, d1), dtype=np.float32))
